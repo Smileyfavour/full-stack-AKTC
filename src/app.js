@@ -8,6 +8,7 @@ const errorHandler = require('./middlewares/errorMiddleware');
 const authRoutes = require('./routes/authRoute');
 const userRoutes = require('./routes/userRoute');
 const courseRoutes = require('./routes/courseRoute');
+const coursePaymentRoutes = require('./routes/coursePaymentRoute');
 const courseBatchRoutes = require('./routes/courseBatchRoute');
 const classRoutes = require('./routes/classRoute');
 const enrollmentRoutes = require('./routes/enrollmentRoute');
@@ -23,6 +24,7 @@ const walletRoutes = require('./routes/walletRoute');
 const centerInfoRoutes = require('./routes/centerInfoRoute');
 
 const app = express();
+exports.app = app;
 
 // Middlewares
 app.use(cors());
@@ -35,10 +37,13 @@ app.use(express.urlencoded({ extended: true }));
 app.use(morgan('dev'));
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
+
+
 // Routes
 app.use('/api/auth', authRoutes);
 app.use('/api/users', userRoutes);
 app.use('/api/courses', courseRoutes);
+app.use('/api/coursePayments', coursePaymentRoutes);
 app.use('/api/coursebatches', courseBatchRoutes);
 app.use('/api/classes', classRoutes);
 app.use('/api/enrollments', enrollmentRoutes);
