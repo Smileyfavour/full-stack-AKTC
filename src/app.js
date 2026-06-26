@@ -22,6 +22,8 @@ const paymentRoutes = require('./routes/paymentRoute');
 const supportRoutes = require('./routes/supportRoute');
 const walletRoutes = require('./routes/walletRoute');
 const centerInfoRoutes = require('./routes/centerInfoRoute');
+const transactionRoutes = require('./routes/transactionRoutes');
+const invoiceRoutes = require('./routes/invoiceRoutes');
 
 const app = express();
 exports.app = app;
@@ -55,8 +57,10 @@ app.use('/api/grades', gradeBookRoutes);
 app.use('/api/library', libraryRoutes);
 app.use('/api/payments', paymentRoutes);
 app.use('/api/support', supportRoutes);
-app.use('/api/wallet', walletRoutes);
+app.use('/api/wallets', walletRoutes);
 app.use('/api/center-info', centerInfoRoutes);
+app.use('/api/transactions', transactionRoutes);
+app.use('/api/invoices', invoiceRoutes);
 
 // Health check
 app.get('/api/health', (req, res) => res.status(200).json({ status: 'OK' }));

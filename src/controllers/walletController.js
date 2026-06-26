@@ -25,7 +25,7 @@ const create = async (req, res) => {
 // Update a wallet (e.g., debit or credit)
 
 const update = async (req, res) => {
-  const item = await Wallet.findByIdAndUpdate(req.params.id, req.body, { new: true });
+  const item = await Wallet.findByIdAndUpdate(req.params.id, req.body, { returnDocument: 'after' });
   if (!item) return sendError(res, 'Not found', 404);
   sendSuccess(res, item, 'Updated successfully');
 };

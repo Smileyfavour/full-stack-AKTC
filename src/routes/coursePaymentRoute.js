@@ -15,7 +15,6 @@ const { authorize } = require("../middlewares/roleMiddleware");
 const router = express.Router();
 
 router.use(protect);
-
 router.post("/", createPayment);
 router.get("/my-payments", getMyPayments);
 router.get("/:id", getPaymentById);

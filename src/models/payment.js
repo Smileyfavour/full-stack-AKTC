@@ -9,6 +9,7 @@ const paymentSchema = new mongoose.Schema(
         transactionId: { type: String, unique: true },
         status: { type: String, enum: ['pending', 'success', 'failed'], default: 'pending' },
         receiptUrl: { type: String }, // Url to payment receipt
+        wallet: { type: mongoose.Schema.Types.ObjectId, ref: 'Wallet' },
     },
     { timestamps: true }
 );
