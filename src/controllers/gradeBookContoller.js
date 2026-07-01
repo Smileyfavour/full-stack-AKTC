@@ -1,8 +1,12 @@
 const GradeBook = require('../models/gradeBookEntry');
 const { sendSuccess, sendError } = require('../utils/responseHandler');
+const applyRoleFilter = require('../utils/roleFilter');
 
 const getAll = async (req, res) => {
-  const items = await GradeBook.find({});
+  const query = applyRoleFilter(req.user, "gradeBook");
+
+  const items = await GradeBook.find(query)
+
   sendSuccess(res, items);
 };
 

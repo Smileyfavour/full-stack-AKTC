@@ -18,16 +18,16 @@ const protect = async (req, res, next) => {
     }
     next();
   } catch (error) {
-    return sendError(res, 'Not authorized, token failed', 401);
+    next(error);
   }
 };
 
 const authorize = (...roles) => {
   return (req, res, next) => {
-    if (!roles.includes(req.user.role)) {
-      return sendError(res, `Role ${req.user.role} is not allowed to access this resource`, 403);
+    if (!req.user || !roles.includes(req.user.role)) {
+      return sendError(res,
+    `Role ${req.user?.role || "unknown"} is not allowed to access this resource`, 403);
     }
-    next();
   };
 };
 

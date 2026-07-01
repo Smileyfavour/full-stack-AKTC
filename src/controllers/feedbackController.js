@@ -1,8 +1,10 @@
 const Feedback = require('../models/feedback');
 const { sendSuccess, sendError } = require('../utils/responseHandler');
+const applyRoleFilter = require('../utils/roleFilter');
 
 const getAll = async (req, res) => {
-  const items = await Feedback.find({});
+  const query = applyRoleFilter(req.user, "feedback");
+  const items = await Feedback.find(query);
   sendSuccess(res, items);
 };
 

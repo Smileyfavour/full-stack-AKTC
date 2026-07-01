@@ -1,11 +1,15 @@
 const Attendance = require('../models/classAttendance');
 const { sendSuccess, sendError } = require('../utils/responseHandler');
 
+const applyRoleFilter = require('../utils/roleFilter');
+
 const getAll = async (req, res) => {
-  const items = await Attendance.find({});
+  const query = applyRoleFilter(req.user, "attendance");
+
+  const items = await Attendance.find(query)
+
   sendSuccess(res, items);
 };
-
 const getOne = async (req, res) => {
   const item = await Attendance.findById(req.params.id);
   if (!item) return sendError(res, 'Not found', 404);

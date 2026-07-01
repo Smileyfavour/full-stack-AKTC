@@ -1,8 +1,11 @@
 const Enrollment = require('../models/enrollment');
 const { sendSuccess, sendError } = require('../utils/responseHandler');
+const applyRoleFilter = require('../utils/roleFilter');
 
 const getAll = async (req, res) => {
-  const items = await Enrollment.find({});
+  const query = applyRoleFilter(req.user, "enrollment");
+
+  const items = await Enrollment.find(query)
   sendSuccess(res, items);
 };
 

@@ -1,8 +1,10 @@
 const Class = require('../models/class');
 const { sendSuccess, sendError } = require('../utils/responseHandler');
+const applyRoleFilter = require('../utils/roleFilter');
 
 const getAll = async (req, res) => {
-  const items = await Class.find({});
+  const query = applyRoleFilter(req.user, "class");
+  const items = await Class.find(query);
   sendSuccess(res, items);
 };
 

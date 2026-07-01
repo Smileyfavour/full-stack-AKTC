@@ -1,8 +1,10 @@
 const Library = require('../models/library');
 const { sendSuccess, sendError } = require('../utils/responseHandler');
+const applyRoleFilter = require('../utils/roleFilter');
 
 const getAll = async (req, res) => {
-  const items = await Library.find({});
+  const query = applyRoleFilter(req.user, "library");
+  const items = await Library.find(query);
   sendSuccess(res, items);
 };
 

@@ -1,8 +1,11 @@
 const Transaction = require('../models/transaction');
 const { sendSuccess, sendError } = require('../utils/responseHandler');
+const applyRoleFilter = require('../utils/roleFilter');
 
 const getAll = async (req, res) => {
-  const items = await Transaction.find({});
+  const query = applyRoleFilter(req.user, "transaction");
+
+  const items = await Transaction.find(query)
   sendSuccess(res, items);
 };
 

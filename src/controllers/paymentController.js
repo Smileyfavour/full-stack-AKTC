@@ -1,12 +1,16 @@
 const Payment = require('../models/payment');
 const paymentService = require('../services/paymentService');
 const { sendSuccess, sendError } = require('../utils/responseHandler');
+const applyRoleFilter = require('../utils/roleFilter');
+
 
 const getAll = async (req, res) => {
-  const items = await Payment.find({});
+  const query = applyRoleFilter(req.user, "payments");
+
+  const items = await Payment.find(query);
+
   sendSuccess(res, items);
 };
-
 const getOne = async (req, res) => {
   const item = await Payment.findById(req.params.id);
   if (!item) return sendError(res, 'Not found', 404);

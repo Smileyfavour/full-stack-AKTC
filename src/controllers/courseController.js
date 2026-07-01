@@ -1,8 +1,11 @@
 const Course = require('../models/course');
 const { sendSuccess, sendError } = require('../utils/responseHandler');
+const applyRoleFilter = require('../utils/roleFilter');
 
 const getAll = async (req, res) => {
-  const items = await Course.find({});
+  const query = applyRoleFilter(req.user, "course");
+
+  const items = await Course.find(query)
   sendSuccess(res, items);
 };
 

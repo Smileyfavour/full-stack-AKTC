@@ -1,10 +1,13 @@
 const Wallet = require('../models/wallet');
 const { sendSuccess, sendError } = require('../utils/responseHandler');
-
+const applyRoleFilter = require('../utils/roleFilter');
 
 // CRUD operations for Wallet
 const getAll = async (req, res) => {
-  const items = await Wallet.find({});
+  const query = applyRoleFilter(req.user, "wallet");
+
+  const items = await Wallet.find(query)
+
   sendSuccess(res, items);
 };
 

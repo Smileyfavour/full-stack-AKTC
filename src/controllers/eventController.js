@@ -1,8 +1,11 @@
 const Event = require('../models/event');
 const { sendSuccess, sendError } = require('../utils/responseHandler');
+const applyRoleFilter = require('../utils/roleFilter');
 
 const getAll = async (req, res) => {
-  const items = await Event.find({});
+  const query = applyRoleFilter(req.user, "event");
+
+  const items = await Event.find(query)
   sendSuccess(res, items);
 };
 

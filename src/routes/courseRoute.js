@@ -5,12 +5,15 @@ const { protect, authorize } = require('../middlewares/authMiddleware');
 // Define the router for course routes
 const router = express.Router();
 
-
 router.use(protect);
+
+// Public
 router.get('/', getAll);
 router.get('/:id', getOne);
-router.post('/', authorize('admin', 'instructor'), create);
-router.put('/:id', authorize('admin', 'instructor'), update);
-router.delete('/:id', authorize('admin'), remove);
+
+// Protected
+router.post('/', protect, authorize('admin', 'instructor'), create);
+router.put('/:id', protect, authorize('admin', 'instructor'), update);
+router.delete('/:id', protect, authorize('admin'), remove);
 
 module.exports = router;
